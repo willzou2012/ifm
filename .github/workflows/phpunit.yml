@@ -13,8 +13,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  frontend:
+    name: Build frontend
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Build
+        working-directory: frontend
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build-only
+
+      - name: Upload frontend bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+          retention-days: 1
+
   tests:
     name: PHPUnit (PHP ${{ matrix.php }})
+    needs: frontend
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -26,6 +57,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Download frontend bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
