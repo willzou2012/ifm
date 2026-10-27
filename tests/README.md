@@ -1,7 +1,7 @@
 # IFM API test suite
 
-Comprehensive tests for the IFM HTTP/JSON API (the frontend is intentionally
-out of scope). The suite tests the **compiled artifact** (`dist/libifm.php`) that
+Comprehensive tests for the IFM HTTP/JSON API (the Vue frontend has its own
+unit and browser tests, see [`frontend/README.md`](../frontend/README.md)). The suite tests the **compiled artifact** (`dist/libifm.php`) that
 actually ships, not `src/` directly — the bootstrap rebuilds it automatically
 when sources are newer.
 

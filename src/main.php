@@ -70,7 +70,8 @@ class IFM {
 		"showrefresh" => 1,
 		"forceproxy" => 0,
 		"confirmoverwrite" => 1,
-		"customDateFormat" => false
+		"customDateFormat" => false,
+		"ace_includes" => "###vars:ace_includes###"
 	];
 
 	private $config = [];
@@ -261,8 +262,6 @@ f00bar;
 					return ["status" => "ERROR", "message" => "Not authenticated"];
 			case "getConfig":
 				return $this->getConfig();
-			case "getTemplates":
-				return $this->getTemplates();
 			case "getI18N":
 				return $this->getI18N($_REQUEST['lang'] ?? $this->getCurrentLang());
 			case "logout":
@@ -344,69 +343,6 @@ f00bar;
 			return array_merge($this->i18n['en'], $this->i18n[$lang]);
 		else
 			return $this->i18n['en'];
-	}
-
-	private function getTemplates() {
-		// templates
-		$templates = [];
-		$templates['app'] = <<<'f00bar'
-###file:src/templates/app.html###
-f00bar;
-		$templates['login'] = <<<'f00bar'
-###file:src/templates/login.html###
-f00bar;
-		$templates['filetable'] = <<<'f00bar'
-###file:src/templates/filetable.html###
-f00bar;
-		$templates['footer'] = <<<'f00bar'
-###file:src/templates/footer.html###
-f00bar;
-		$templates['task'] = <<<'f00bar'
-###file:src/templates/task.html###
-f00bar;
-		$templates['ajaxrequest'] = <<<'f00bar'
-###file:src/templates/modal.ajaxrequest.html###
-f00bar;
-		$templates['copymove'] = <<<'f00bar'
-###file:src/templates/modal.copymove.html###
-f00bar;
-		$templates['createdir'] = <<<'f00bar'
-###file:src/templates/modal.createdir.html###
-f00bar;
-		$templates['createarchive'] = <<<'f00bar'
-###file:src/templates/modal.createarchive.html###
-f00bar;
-		$templates['deletefile'] = <<<'f00bar'
-###file:src/templates/modal.deletefile.html###
-f00bar;
-		$templates['extractfile'] = <<<'f00bar'
-###file:src/templates/modal.extractfile.html###
-f00bar;
-		$templates['file'] = <<<'f00bar'
-###file:src/templates/modal.file.html###
-f00bar;
-		$templates['file_editoroptions'] = <<<'f00bar'
-###file:src/templates/modal.file_editoroptions.html###
-f00bar;
-		$templates['remoteupload'] = <<<'f00bar'
-###file:src/templates/modal.remoteupload.html###
-f00bar;
-		$templates['renamefile'] = <<<'f00bar'
-###file:src/templates/modal.renamefile.html###
-f00bar;
-		$templates['search'] = <<<'f00bar'
-###file:src/templates/modal.search.html###
-f00bar;
-		$templates['searchresults'] = <<<'f00bar'
-###file:src/templates/modal.searchresults.html###
-f00bar;
-		$templates['uploadfile'] = <<<'f00bar'
-###file:src/templates/modal.uploadfile.html###
-f00bar;
-		$templates['uploadconfirmoverwrite'] = <<<'f00bar'
-###file:src/templates/modal.uploadconfirmoverwrite.html###
-f00bar;
-		return $templates;
 	}
 
 	private function getFiles($dir) {

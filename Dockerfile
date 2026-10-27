@@ -1,4 +1,13 @@
-# --- Stage 1: Builder ---
+# --- Stage 1: Frontend ---
+FROM node:24-alpine AS frontend
+
+WORKDIR /usr/src/ifm/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY frontend/ ./
+RUN npm run build-only
+
+# --- Stage 2: Builder ---
 FROM php:8-cli-alpine AS builder
 
 # add missing dependencies
@@ -17,6 +26,7 @@ RUN docker-php-ext-install \
 
 WORKDIR /usr/src/ifm
 COPY . .
+COPY --from=frontend /usr/src/ifm/frontend/dist ./frontend/dist
 
 ARG CDN=false
 
@@ -29,7 +39,7 @@ RUN composer install --optimize-autoloader && \
         ./compiler.php --languages=all; \
     fi
 
-# --- Stage 2: Runner ---
+# --- Stage 3: Runner ---
 FROM php:8-cli-alpine AS runner
 
 # add missing dependencies

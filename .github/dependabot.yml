@@ -11,3 +11,17 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      # bundle routine updates so the frontend does not drown in PRs
+      vue:
+        patterns: ["vue", "pinia", "@vue/*", "@vitejs/*", "vue-tsc"]
+      tooling:
+        patterns: ["vite", "vitest", "@vitest/*", "eslint*", "@typescript-eslint/*", "prettier", "typescript", "jsdom", "@playwright/*"]

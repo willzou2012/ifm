@@ -21,11 +21,10 @@ The IFM is a web-based filemanager, which comes as a single file solution using 
 
 The IFM uses the following resources:
 
+* [Vue.js](https://vuejs.org) and [Pinia](https://pinia.vuejs.org)
 * [ACE Editor](https://ace.c9.io)
-* [Bootstrap v4](https://getbootstrap.com)
+* [Bootstrap v4](https://getbootstrap.com) (CSS)
 * [Font Awesome](https://fontawesome.com/)
-* [jQuery](https://jquery.com)
-* [Mustache](https://mustache.github.io/)
 
 ## Features
 
@@ -70,7 +69,7 @@ IFM can be deployed in three ways. Each maps to one of the three flavours descri
 
 Download the latest release from [GitHub Releases](https://github.com/misterunknown/ifm/releases/latest), or build the project yourself ([Building → Local](#local)) — the compiled files land in `./dist`.
 
-You can choose between the CDN version (dependencies like bootstrap, jquery etc. are loaded via CDN) or the bundled version, which inlines all these dependencies. Drop the chosen `*.php` file into a directory served by your PHP-enabled web server.
+You can choose between the CDN version (dependencies like Bootstrap, Font Awesome and the ACE editor are loaded via CDN) or the bundled version, which inlines all these dependencies. Drop the chosen `*.php` file into a directory served by your PHP-enabled web server.
 
 The minified versions (`*.min.php`) are zipped via gzip. These versions are not recommended; if the filesize of the IFM is an issue for you, consider using the CDN versions.
 
@@ -133,9 +132,11 @@ docker compose down
 
 You can build IFM from source in three different ways — locally, via Docker, or via Docker Compose. All of them produce the same compiler output; they differ only in how the build environment is set up.
 
+The browser frontend is a [Vue 3](https://vuejs.org/) application in [`frontend/`](frontend/README.md). It is built with Node.js first (`make frontend`); `compiler.php` then inlines the resulting bundle into the single PHP file.
+
 The compiler can produce two flavours of the final single-file PHP script:
 
-* **Bundled** *(default)* — third-party assets (Bootstrap, jQuery, ACE editor, etc.) are inlined into the output. The resulting file is self-contained and works without internet access on the client.
+* **Bundled** *(default)* — third-party assets (Vue, Bootstrap CSS, Font Awesome, ACE editor) are inlined into the output. The resulting file is self-contained and works without internet access on the client.
 * **CDN** — third-party assets are loaded from public CDNs at runtime. The output file is much smaller, but clients need network access to the CDN hosts.
 
 ### Local
@@ -153,6 +154,10 @@ php -r "unlink('composer-setup.php');"
 ```
 
 This produces a local `composer.phar` you can invoke as `php composer.phar <command>`. For an up-to-date installer and signature verification see the [official instructions](https://getcomposer.org/download/).
+
+#### Install Node.js
+
+The frontend build needs [Node.js](https://nodejs.org/) 22.12 or newer (including `npm`). `make frontend` installs the frontend dependencies (`npm ci`) and builds the bundle; `make build` runs it automatically.
 
 #### Install dependencies
 
@@ -178,10 +183,14 @@ The `Makefile` wraps the compiler and helper scripts. Run `make help` to see all
 | `make analyse`      | Run PHPStan static analysis on `./src`                     |
 | `make syntax-check` | Run `php -l` against every tracked `*.php` file            |
 | `make test`         | Build dist and run the full PHPUnit suite                  |
+| `make frontend`     | Build the Vue frontend into `./frontend/dist`              |
+| `make frontend-lint`| Lint, format-check and type-check the frontend             |
+| `make frontend-test`| Run the frontend unit tests with coverage                  |
+| `make test-e2e`     | Build dist and run the browser end-to-end tests            |
 | `make build`        | Compile the regular (bundled) dist files into `./dist`     |
 | `make build-cdn`    | Compile the CDN dist files into `./dist`                   |
 | `make build-all`    | Compile both bundled and CDN flavours                      |
-| `make clean`        | Remove the `./dist` directory                              |
+| `make clean`        | Remove the `./dist` and `./frontend/dist` directories      |
 
 You can override the PHP binary with the `PHP` variable, e.g. `make build PHP=/usr/bin/php8.2`.
 

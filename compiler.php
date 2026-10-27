@@ -143,6 +143,14 @@ foreach ($IFM_SRC_PHP as $phpfile) {
 }
 $compiled = join($compiled);
 
+// The Vue frontend is built separately (Node.js) and inlined from frontend/dist
+foreach (["frontend/dist/ifm.min.js", "frontend/dist/ifm.min.css"] as $bundle) {
+	if (!is_file($bundle)) {
+		fwrite(STDERR, "ERROR: ".$bundle." not found. Build the frontend first: make frontend\n");
+		exit(1);
+	}
+}
+
 // Include assets
 $compiled = str_replace("###ASSETS_CSS###", file_get_contents("src/assets".(IFM_CDN?".cdn":"").".css"), $compiled);
 $compiled = str_replace("###ASSETS_JS###", file_get_contents("src/assets".(IFM_CDN?".cdn":"").".js"), $compiled);

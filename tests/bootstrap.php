@@ -20,6 +20,8 @@ $sources = [
     $root . '/src/ifmarchive.php',
     $root . '/src/htpasswd.php',
     $root . '/compiler.php',
+    $root . '/frontend/dist/ifm.min.js',
+    $root . '/frontend/dist/ifm.min.css',
 ];
 
 $needsBuild = !file_exists($lib);

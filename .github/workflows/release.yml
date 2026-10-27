@@ -32,9 +32,21 @@ jobs:
           coverage: none
           tools: composer
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
       - name: Install dependencies
         # build needs matthiasmullie/minify, which lives in require-dev
-        run: composer update --no-interaction --no-progress
+        run: |
+          composer update --no-interaction --no-progress
+          npm --prefix frontend ci --no-audit --no-fund
+
+      - name: Build frontend
+        run: npm --prefix frontend run build
 
       - name: Build artifacts
         env:
