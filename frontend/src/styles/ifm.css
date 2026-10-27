@@ -1,0 +1,423 @@
+/*
+ * IFM application styles (on top of Bootstrap 4 and Font Awesome 4)
+ */
+body {
+  padding-top: 70px;
+  overflow-y: scroll !important;
+  padding-right: 0 !important;
+}
+
+.ifm-inline {
+  padding-top: 0;
+}
+
+main {
+  margin-bottom: 1rem;
+}
+
+a {
+  cursor: pointer !important;
+}
+
+a.ifmitem:focus {
+  outline: 0;
+}
+
+img.imgpreview {
+  max-width: 100%;
+  background-repeat: repeat repeat;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAABI2lDQ1BJQ0MgcHJvZmlsZQAAKJGdkLFKw1AUhr9UsaXYSXEQhwyuBRHM5FIVgqAQYwWrU5qkWExiSFKKb+Cb6MN0EASfwCdQcPa/0cHBLF44/B+Hc/7/3gstOwnTcnkH0qwqXH8wuhxd2e032nTosksvCMt84HknNJ7PVyyjL33j1Tz351mJ4jKULlRZmBcVWPtiZ17lhlWs3w79Q/GD2I7SLBI/ibejNDJsdv00mYU/nuY2q3F2cW76qi1cjjnFw2bMjCkJFX1pps4RDntSl4KAe0pCaUKs3lwzFTeiUk4uB6KhSLdpyNus8zyljOUxlZdJuCOVp8nD/O/32sdZvWltLPKgCOrWkqo1mcD7I/RGsPYM3euGrM7vtzXMOPXMP9/4BdaxUFxWskm6AAAAAmJLR0QAy6Y7OAoAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAiSURBVAjXY/zPwMDAcIaBgYGBiQEOCDJZzjAwMDCYkKoNAPmXAuEuYku0AAAAAElFTkSuQmCC');
+}
+
+div#content {
+  /* is for the ACE editor */
+  width: 100%;
+  height: 350px;
+}
+
+div#content.ifm-editor-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 10000;
+}
+
+/* Make tables more compact (overwrites bootstrap default of 0.75rem) */
+.table td,
+.table th {
+  padding: 0.25rem;
+}
+
+/* narrow navbar */
+.navbar {
+  padding: 0.3rem !important;
+}
+
+/*
+ * Icon size
+ */
+.icon {
+  font-size: 14pt;
+}
+@media (max-width: 768px) {
+  .icon {
+    font-size: 12pt;
+  }
+  #filetable tr th.buttons {
+    min-width: 85px !important;
+  }
+}
+
+/*
+ * Filetable related settings
+ */
+.ifm-filetable-controls label {
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+#filetable th {
+  border-top: 0;
+  white-space: nowrap;
+}
+#filetable th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+#filetable th .sort-icon {
+  font-size: 0.8em;
+}
+#filetable .td-owner,
+#filetable .th-owner,
+#filetable .td-group,
+#filetable .th-group,
+#filetable .td-permissions,
+#filetable .th-permissions {
+  text-align: center;
+}
+#filetable tr td:last-child {
+  text-align: right;
+}
+#filetable td:last-child a:hover {
+  text-decoration: none;
+}
+#filetable th.th-permissions,
+#filetable td.td-permissions {
+  width: 1%;
+  white-space: nowrap;
+}
+#filetable td.td-filename {
+  position: relative;
+}
+
+input[name='newpermissions'] {
+  display: inline-block;
+  padding: 6px 8px;
+  width: 6.5rem;
+}
+
+#filetable tr th.buttons {
+  min-width: 95px;
+}
+#filetable tbody tr.highlightedItem {
+  box-shadow: 0 0 10px 2px #337ab7;
+}
+#filetable tbody tr.highlightedItem td:first-child a {
+  outline: none;
+}
+#filetable tbody tr.selectedItem {
+  background-color: #337ab7;
+  color: #fff;
+}
+#filetable tbody tr.selectedItem a {
+  color: #fff;
+}
+#filetable tbody tr td {
+  vertical-align: inherit;
+}
+
+/* image preview shown when hovering an image */
+.ifm-image-preview {
+  top: 100%;
+  left: 0;
+  max-width: 300px;
+}
+.ifm-image-preview .arrow {
+  left: 1rem;
+}
+
+div.ifminfo {
+  color: #adadad;
+  font-size: 10pt;
+}
+
+/*
+ * Context menu
+ */
+.ifm-context-menu {
+  position: fixed;
+  z-index: 1060;
+}
+.ifm-context-menu .dropdown-item .icon {
+  font-size: 1em;
+  margin-right: 0.25rem;
+}
+
+/*
+ * Notifications
+ */
+.ifm-notifications {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 1080;
+  width: 360px;
+  max-width: calc(100% - 30px);
+  pointer-events: none;
+}
+.ifm-notifications-raised {
+  bottom: 70px;
+}
+.ifm-notification {
+  pointer-events: auto;
+}
+.ifm-notification ul {
+  margin-bottom: 0;
+}
+
+/*
+ * Footer / Task-Queue settings
+ */
+footer {
+  position: fixed;
+  padding-top: 1em;
+  background-color: #eee;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1030;
+}
+
+#waitqueue {
+  max-height: 6rem;
+  overflow: hidden;
+}
+#waitqueue.expanded {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+#waitqueue .progress {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.task-progress-bar {
+  transition: width 0.2s ease;
+}
+
+/*
+ * File drop overlay
+ */
+#filedropoverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  background-color: lightblue;
+  opacity: 0.7;
+  z-index: 1000;
+}
+
+#filedropoverlay h1 {
+  border-radius: 5px;
+  color: #000;
+  position: relative;
+  top: 50%;
+  font-size: 6em;
+  pointer-events: none;
+}
+
+/*
+ * Modal related settings
+ */
+.modal {
+  overflow-y: auto;
+}
+
+.ifm-extract-option + .ifm-extract-option {
+  margin-top: 0.5rem;
+}
+
+.ifm-extract-option:has(input[type='radio']:checked) {
+  outline: 2px solid #007bff;
+  border-radius: 0.25rem;
+}
+
+#copyMoveTree {
+  max-height: 80vh;
+  overflow: auto;
+}
+#copyMoveTree .list-group-item {
+  cursor: pointer;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+#copyMoveTree .list-group-item:hover {
+  background-color: #f5f5f5;
+}
+#copyMoveTree .list-group-item.node-selected {
+  background-color: #428bca;
+  color: #fff;
+}
+#copyMoveTree .expand-icon,
+#copyMoveTree .expand-placeholder {
+  display: inline-block;
+  width: 1.5rem;
+}
+
+.ifm-editor-options {
+  top: 100%;
+  left: 0;
+  width: 276px;
+}
+.ifm-editor-options .arrow {
+  left: 1rem;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 600px;
+    margin: 1.75rem auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-lg,
+  .modal-xl {
+    max-width: 800px;
+  }
+}
+
+/*
+ * Navbar icon sizing - reduce by 20%
+ */
+.nav-link {
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.2rem !important;
+}
+
+.nav-link .fa-2x {
+  font-size: 1.6em !important;
+}
+
+.nav-link .fa-stack {
+  transform: scale(0.8);
+  transform-origin: top center;
+}
+
+/*
+ * Login page
+ */
+.form-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  height: 3.125rem;
+  padding: 0.75rem;
+}
+
+.form-label-group > input {
+  padding-left: 2.75rem;
+}
+
+.form-label-group .input-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  display: block;
+  width: calc(100% - 2rem);
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #495057;
+  pointer-events: none;
+  cursor: text;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: 1.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 12px;
+  color: #777;
+}
+
+/*
+ * App info footer
+ */
+.ifminfo-footer-text {
+  float: left;
+  padding-left: 10px;
+}
+
+.ifminfo-github-link {
+  float: right;
+  padding-right: 10px;
+}
+
+/*
+ * Upload file list
+ */
+#uploadFileList {
+  max-height: 12rem;
+  overflow-y: auto;
+}
+
+/*
+ * Search results
+ */
+.search-results-container {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.search-folder-path {
+  color: #999;
+}

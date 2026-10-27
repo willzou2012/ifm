@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>IFM - improved file manager (development)</title>
+    <!-- served from ../src/includes, see publicDir in vite.config.ts -->
+    <link rel="stylesheet" href="/bootstrap.min.css" />
+    <link rel="stylesheet" href="/font-awesome.min.css" />
+    <script src="/ace.min.js"></script>
+  </head>
+  <body>
+    <div id="ifm"></div>
+    <script type="module">
+      import '/src/main.ts'
+      new window.IFM({ api: '/ifm.php' }).init('ifm')
+    </script>
+  </body>
+</html>
